@@ -1,0 +1,25 @@
+﻿<Properties StartupConfiguration="{6D663131-9B57-D01C-25A0-0B38BA0C60C8}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DragNode.cs">
+    <Files>
+      <File FileName="Assets/Scripts/NodeShow.cs" Line="282" Column="16" />
+      <File FileName="Assets/Scripts/DrawLine.cs" Line="85" Column="80" />
+      <File FileName="Assets/Scripts/JsonReaderTest.cs" Line="152" Column="12" NotebookId="1" />
+      <File FileName="Assets/Scripts/Button_UI.cs" Line="10" Column="39" NotebookId="1" />
+      <File FileName="Assets/Scripts/DragNode.cs" Line="11" Column="6" NotebookId="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="testPointFIle (6)(1)" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0d849266-4802-459a-aade-ec0f8510bab1" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
