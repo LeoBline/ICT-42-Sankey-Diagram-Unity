@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{6D663131-9B57-D01C-25A0-0B38BA0C60C8}</ProjectGuid>
+    <ProjectGuid>{EFC4657C-704B-8A82-9D84-9A456DBE1F38}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\JsonReaderTest.cs" />
     <Compile Include="Assets\Scripts\lineMouseOver.cs" />
     <Compile Include="Assets\Scripts\LineHighLight.cs" />
+    <Compile Include="Assets\Scripts\JsonLoadButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -687,7 +688,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{6709EA71-A2A3-C6A4-FC5C-B5881AD75844}</Project>
+      <Project>{14B7782D-7387-EE4E-BAFD-BCE6C0F3B37F}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>

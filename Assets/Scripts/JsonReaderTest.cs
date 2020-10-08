@@ -162,81 +162,93 @@ public class JsonReaderTest : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        loadDate("");
 
+    }
+
+
+    public void loadDate(string transportFilepath)
+    {
         graphContainer = transform.parent.gameObject.GetComponent<RectTransform>();
         x0 = 10;
         y0 = 10;
-        x1 = x0 + graphContainer.sizeDelta.x-10;
-        y1 = graphContainer.sizeDelta.y + y0-20;
-        string filepath="";
-        if(jsFile!=null)
+        x1 = x0 + graphContainer.sizeDelta.x - 10;
+        y1 = graphContainer.sizeDelta.y + y0 - 20;
+        string filepath = "";
+        if (transportFilepath != "")
         {
-            filepath = AssetDatabase.GetAssetPath(jsFile);
-            if(!filepath.EndsWith(".json"))
-            {
-                Debug.Log(filepath+" is not a json file");
-            }
-            else
-            {
-                filepath = filepath.Substring(6);
-            }
-            
+            filepath = transportFilepath;
         }
-        StreamReader streamreader = new StreamReader(Application.dataPath + filepath);
-        JsonReader js = new JsonReader(streamreader);
-        Root r = JsonMapper.ToObject<Root>(js);
-        NodesStructures = new NodesStructure[r.nodes.Count];
-        for (int i = 0; i < r.nodes.Count; i++)
+        else
         {
-
-            NodesStructures[i] = new NodesStructure();
-            NodesStructures[i].name = r.nodes[i].name;
-            NodesStructures[i].layer = 999;
-            NodesStructures[i].index = i;
-            NodesStructures[i].SourceLinks = new List<LinksStructure>();
-            NodesStructures[i].TargetLinks = new List<LinksStructure>();
-        }
-        LinksStructures = new LinksStructure[r.links.Count];
-        for (int i = 0; i < r.links.Count; i++)
-        {
-
-
-/*            NodesStructures[r.links[i].target].addTargetLink(r.links[i].source, r.links[i].target, r.links[i].value,i);
-            NodesStructures[r.links[i].source].addSourceLink(r.links[i].source, r.links[i].target, r.links[i].value,i);*/
-            LinksStructures[i] = new LinksStructure();
-            LinksStructures[i].value = r.links[i].value;
-            LinksStructures[i].index = i;
-            LinksStructures[i].SourceNode = NodesStructures[r.links[i].source];
-            LinksStructures[i].TargetNode = NodesStructures[r.links[i].target];
-            NodesStructures[r.links[i].source].SourceLinks.Add(LinksStructures[i]);
-            NodesStructures[r.links[i].target].TargetLinks.Add(LinksStructures[i]);
-
-        }
-        if (linkSort != null)
-        {
-            for (int i = 0; i < NodesStructures.Length; i++)
+            if (jsFile != null)
             {
-                NodesStructures[i].SourceLinks.Sort((IComparer<LinksStructure>)linkSort);
-                NodesStructures[i].TargetLinks.Sort((IComparer<LinksStructure>)linkSort);
+                filepath = AssetDatabase.GetAssetPath(jsFile);
+                if (!filepath.EndsWith(".json"))
+                {
+                    Debug.Log(filepath + " is not a json file");
+                }
+
             }
         }
-        for(int i = 0; i < NodesStructures.Length; i++)
+        if (filepath != "")
         {
-            NodesStructures[i].getvalue();
-            
-        }
-        ComputeNodeHeights();
-        ComputeNodeDepths();
+            StreamReader streamreader = new StreamReader(filepath);
+            JsonReader js = new JsonReader(streamreader);
+            Root r = JsonMapper.ToObject<Root>(js);
+            NodesStructures = new NodesStructure[r.nodes.Count];
+            for (int i = 0; i < r.nodes.Count; i++)
+            {
 
-        ComputeNodeBreadths();
-        computeLinkBreadths();
-        /*        Debug.Log("--------------------------------");
+                NodesStructures[i] = new NodesStructure();
+                NodesStructures[i].name = r.nodes[i].name;
+                NodesStructures[i].layer = 999;
+                NodesStructures[i].index = i;
+                NodesStructures[i].SourceLinks = new List<LinksStructure>();
+                NodesStructures[i].TargetLinks = new List<LinksStructure>();
+            }
+            LinksStructures = new LinksStructure[r.links.Count];
+            for (int i = 0; i < r.links.Count; i++)
+            {
+
+
+                /*            NodesStructures[r.links[i].target].addTargetLink(r.links[i].source, r.links[i].target, r.links[i].value,i);
+                            NodesStructures[r.links[i].source].addSourceLink(r.links[i].source, r.links[i].target, r.links[i].value,i);*/
+                LinksStructures[i] = new LinksStructure();
+                LinksStructures[i].value = r.links[i].value;
+                LinksStructures[i].index = i;
+                LinksStructures[i].SourceNode = NodesStructures[r.links[i].source];
+                LinksStructures[i].TargetNode = NodesStructures[r.links[i].target];
+                NodesStructures[r.links[i].source].SourceLinks.Add(LinksStructures[i]);
+                NodesStructures[r.links[i].target].TargetLinks.Add(LinksStructures[i]);
+
+            }
+            if (linkSort != null)
+            {
                 for (int i = 0; i < NodesStructures.Length; i++)
                 {
-                    NodesStructures[i].tostring();
-                }*/
+                    NodesStructures[i].SourceLinks.Sort((IComparer<LinksStructure>)linkSort);
+                    NodesStructures[i].TargetLinks.Sort((IComparer<LinksStructure>)linkSort);
+                }
+            }
+            for (int i = 0; i < NodesStructures.Length; i++)
+            {
+                NodesStructures[i].getvalue();
 
-        gameObject.SetActive(false);
+            }
+            ComputeNodeHeights();
+            ComputeNodeDepths();
+
+            ComputeNodeBreadths();
+            computeLinkBreadths();
+            /*        Debug.Log("--------------------------------");
+                    for (int i = 0; i < NodesStructures.Length; i++)
+                    {
+                        NodesStructures[i].tostring();
+                    }*/
+
+            gameObject.SetActive(false);
+        }
     }
 
     void Update()
