@@ -4,6 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
+/*
+ * Class Name: 
+ *     DateVisual
+ * Super class :
+ *     MonoBehaviour
+ */
+/*
+ * Class Description :
+ *     This class store the json data from files and saves them as objects 
+ *     in two arrays. An nested class (Window_Graph) handles the two arrays
+ *     generate before, and draws the data in the user interface.  
+ */
 public class DateVisual : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -21,7 +33,9 @@ public class DateVisual : MonoBehaviour
       
     }
 
- 
+
+ //nested class Window_Graph
+ //super Class: MonoBehaviour
 public class Window_Graph : MonoBehaviour
 {
     [SerializeField] private Sprite dotSprite;
@@ -37,9 +51,13 @@ public class Window_Graph : MonoBehaviour
         showGraph(valueList);
 
     }
-    //有关于宽度的比例尺。找列数
+    
+    //Scale about the width. 
+   
+    //scale about the depth
 
-    //深度的比例尺
+    //Create the Node
+    //set the infomation
     private GameObject CreatDot(Vector2 anchoredPosition)
     {
         GameObject gameObject = new GameObject("dot", typeof(Image));
@@ -52,6 +70,8 @@ public class Window_Graph : MonoBehaviour
         rectTransform.anchorMin = new Vector2(0, 0);
         return gameObject;
     }
+    //show the Node in the canvas
+
     private void showGraph(List<int> valueList)
     {
         float graphWidth = graphContainer.sizeDelta.x;
@@ -96,6 +116,8 @@ public class Window_Graph : MonoBehaviour
 
 
     }
+    
+    //create the link between two nodes
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB)
     {
         GameObject gameObject = new GameObject("dotConnection", typeof(Image));
@@ -124,6 +146,8 @@ public class Window_Graph : MonoBehaviour
         }
         rectTransform.localEulerAngles = new Vector3(0, 0, angle);
     }
+
+    //Create the bar
     private GameObject CreatBar(Vector2 graphPosition, float barWidth)
     {
         GameObject gameObject = new GameObject("bar", typeof(Image));

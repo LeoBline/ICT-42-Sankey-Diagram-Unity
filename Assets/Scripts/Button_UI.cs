@@ -5,11 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 /*
-* Button in the UI
-* */
+ * Class Name :  
+ *     Button_UI
+ */
+/*
+ * Class Description : 
+ *     This class has multiple attributes for monitoring mouse operations which 
+ *     is type of Action. They can call corresponding methods. At current stage, 
+ *     only implement methods to meet the functional requirements of hover on are 
+ *     expanded. More mouse action attributes are set for scalability of the software, 
+ *     and this category can be expanded when there is more need to monitor mouse 
+ *     actions in the future. 
+ */
 public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler 
 {
-  
+ 
+    //Some attributions of Button_UI
     public Action ClickFunc = null;
     public Action MouseRightClickFunc = null;
     public Action MouseMiddleClickFunc = null;
@@ -24,6 +35,7 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Action MouseUpdate = null;
     public Action<PointerEventData> OnPointerClickFunc;
 
+    //Three kinds of mouse hover behaviour
     public enum HoverBehaviour
     {
         Custom,
@@ -53,7 +65,7 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public CursorManager.CursorType cursorMouseOver, cursorMouseOut;
 #endif
 
-
+    //functions about the button
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         if (internalOnPointerEnterFunc != null) internalOnPointerEnterFunc();
