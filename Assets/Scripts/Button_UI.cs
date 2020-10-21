@@ -5,14 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 /*
- * Button_UI class: this class set the button in the User interface, 
- *                  and set functions of button.
 * Button in the UI
 * */
 public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler 
 {
   
-    //Some Action varties
     public Action ClickFunc = null;
     public Action MouseRightClickFunc = null;
     public Action MouseMiddleClickFunc = null;
@@ -27,7 +24,6 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Action MouseUpdate = null;
     public Action<PointerEventData> OnPointerClickFunc;
 
-    //four kinds of Mouse behaviour
     public enum HoverBehaviour
     {
         Custom,
@@ -35,8 +31,6 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         Change_Image,
         Change_SetActive,
     }
-
-    
     public HoverBehaviour hoverBehaviourType = HoverBehaviour.Custom;
     private Action hoverBehaviourFunc_Enter, hoverBehaviourFunc_Exit;
 
@@ -60,7 +54,6 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 #endif
 
 
-    //Button Functions
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         if (internalOnPointerEnterFunc != null) internalOnPointerEnterFunc();
@@ -71,7 +64,6 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         mouseOver = true;
         mouseOverPerSecFuncTimer = 0f;
     }
-
     public virtual void OnPointerExit(PointerEventData eventData)
     {
         if (internalOnPointerExitFunc != null) internalOnPointerExitFunc();

@@ -10,6 +10,7 @@ public class NodeShow : MonoBehaviour {
     public GameObject JsonReaderObject;
     public List<GameObject> textlist;
     private RectTransform graphContainer;
+    private RectTransform window_Graph;
     public int LineReadererPointsCount = 200;
 
     private static NodeShow instance;
@@ -20,7 +21,6 @@ public class NodeShow : MonoBehaviour {
     private GameObject[] barlist;
     private GameObject[] linklist;
     int linkindex = 0;
-    public Color nodeColor = Color.green;
     [Range(1, 16)]
     public int textFontSize =10;
     [Range((float)0.01, (float)0.99)]
@@ -40,7 +40,6 @@ public class NodeShow : MonoBehaviour {
         barlist = new GameObject[nodesStructures.Length];
         linklist = new GameObject[JsonReaderObject.GetComponent<JsonReaderTest>().LinksStructures.Length];
         graphContainer = transform.GetComponent<RectTransform>();
-
         instance = this;
         tooltipGameObject = graphContainer.Find("tooltip").gameObject;
         tooltipGameObject.SetActive(false);
@@ -68,14 +67,33 @@ public class NodeShow : MonoBehaviour {
             continulFlag = true;
             Update();
         };
-        transform.Find("Justify").GetComponent<Button_UI>().ClickFunc = () =>
+       
+            transform.Find("Justify").GetComponent<Button_UI>().ClickFunc = () =>
         {
             JsonReaderObject.GetComponent<JsonReaderTest>().align = JsonReaderTest.aligns.justify;
             JsonReaderObject.SetActive(true);
             continulFlag = true;
             Update();
         };
+         transform.Find("Download").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+         
+            GameObject gameObject = new GameObject("MainCamera", typeof(Camera));
+            ScreenshotHandler screenshot1 = gameObject.AddComponent<ScreenshotHandler>();
+            gameObject.transform.SetParent(window_Graph, false);
+            gameObject.AddComponent<RectTransform>();
+            RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
+            rectTransform.anchoredPosition3D = new Vector3(0, 0, -720);
+            Camera camera = gameObject.GetComponent<Camera>();
+           // camera.clearFlags = CameraClearFlags.Nothing;
+            ScreenshotHandler screenshot = new ScreenshotHandler(camera);
+            screenshot.TakeScreenshot_Static(1000, 800);
+          
+
+
+        };
     }
+    
 
 
     public List<GameObject> AddCollider(int part, GameObject lineobject, string tool)
@@ -88,14 +106,11 @@ public class NodeShow : MonoBehaviour {
             var end = line.GetPosition(line.positionCount - 1);
             var a = (line.positionCount - 1) / part;
             GameObject test = new GameObject("text", typeof(Text));
-
             test.GetComponent<Text>().fontSize = textFontSize;
             test.GetComponent<Text>().font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            test.GetComponent<Text>().color = new Color(255, 255, 255);
+            test.GetComponent<Text>().color = new Color(224,255,255);
             test.GetComponent<Text>().text = tool;
             test.transform.SetParent(line.transform);
-
-
             test.SetActive(false);
             test.transform.localPosition = new Vector3(start.x + 60, start.y - 50, 0);
             textlist.Add(test);
@@ -202,7 +217,7 @@ public class NodeShow : MonoBehaviour {
                 string name = nodesStructures[i].name;
                 yPosition += barHight / 2;
                 xPosition += Width / 2;
-                updateBarAndLink(new Vector2(xPosition, yPosition), Width, barHight, nodesStructures[i], i);
+                updateBarAndLink(new Vector2(xPosition, yPosition), Width, barHight, nodesStructures[i], i,true);
                 Button_UI barButtonUI = GameObjectList[i].gameObject.GetComponent<Button_UI>();
                 barButtonUI.MouseOverOnceFunc += () =>
                 {
@@ -231,7 +246,7 @@ public class NodeShow : MonoBehaviour {
             string name = nodesStructures[i].name;
             yPosition += barHight / 2;
             xPosition += Width / 2;
-            updateBarAndLink(new Vector2(xPosition, yPosition), Width, barHight, nodesStructures[i], i);
+            updateBarAndLink(new Vector2(xPosition, yPosition), Width, barHight, nodesStructures[i], i,false);
             Button_UI barButtonUI = GameObjectList[i].gameObject.GetComponent<Button_UI>();
             barButtonUI.MouseOverOnceFunc += () => {
                 ShowTooltip_Static("name:" + name + "Value:" + Value, (new Vector2(xPosition, yPosition)));
@@ -331,12 +346,24 @@ public class NodeShow : MonoBehaviour {
         col.transform.Rotate(0, 0, angle);
         return a;
     }
-
-    private void updateBarAndLink(Vector2 graphPosition, float barWidth, float barHight, NodesStructure Node, int i)
+    public Color RandomColor1()
+    {
+        float r = UnityEngine.Random.Range(0f, 1f);
+        float g = UnityEngine.Random.Range(0f, 1f);
+        float b = UnityEngine.Random.Range(0f, 1f);
+        Color color = new Color(r, g, b);
+        return color;
+    }
+    private void updateBarAndLink(Vector2 graphPosition, float barWidth, float barHight, NodesStructure Node, int i,bool drag)
     {
         GameObject gameObject = GameObjectList[i].gameObject;
-
-        gameObject.GetComponent<Image>().color = Color.green;
+        if (drag == false)
+        {
+            gameObject.GetComponent<Image>().color = RandomColor1();
+        }
+        else{
+            
+        }
         gameObject.transform.SetParent(graphContainer, false);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = graphPosition;
@@ -351,8 +378,7 @@ public class NodeShow : MonoBehaviour {
     private GameObject CreateBar(Vector2 graphPosition, float barWidth, float barHight, NodesStructure Node, int i)
     {
         GameObject gameObject = new GameObject("node:" + Node.name, typeof(Image));
-
-        gameObject.GetComponent<Image>().color = nodeColor;
+        gameObject.GetComponent<Image>().color = RandomColor1();
         gameObject.transform.SetParent(graphContainer, false);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = graphPosition;
