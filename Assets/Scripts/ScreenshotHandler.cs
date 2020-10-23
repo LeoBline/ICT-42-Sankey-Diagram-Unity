@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ScreenshotHandler : MonoBehaviour
@@ -27,16 +28,20 @@ public class ScreenshotHandler : MonoBehaviour
     {
         if (takeScreenshotOnNectFrame)
         {
+            myCamera.gameObject.SetActive(true);
             takeScreenshotOnNectFrame = false;
             RenderTexture renderTexture = myCamera.targetTexture;
             Texture2D renderResult = new Texture2D(renderTexture.width, renderTexture.height, TextureFormat.ARGB32, false);
             Rect rect = new Rect(0, 0, renderTexture.width, renderTexture.height);
             renderResult.ReadPixels(rect, 0, 0);
             byte[] byteArray = renderResult.EncodeToPNG();
-            System.IO.File.WriteAllBytes(Application.dataPath + "/CameraScreenshot.png", byteArray);
+
+            string filePath = EditorUtility.SaveFilePanel("Load Json File", Application.streamingAssetsPath, "CameraScreenshot.png", "png");
+            System.IO.File.WriteAllBytes(filePath, byteArray);
             Debug.Log("Save");
             RenderTexture.ReleaseTemporary(renderTexture);
             myCamera.targetTexture = null;
+            myCamera.gameObject.SetActive(false);
         }
        
     }

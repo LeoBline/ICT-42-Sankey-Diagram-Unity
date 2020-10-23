@@ -12,7 +12,7 @@ public class JsonLoadButton : MonoBehaviour
         transform.GetComponent<Button_UI>().ClickFunc = () =>
         {
             //open file panel
-            string filePath = EditorUtility.OpenFilePanel("level", Application.streamingAssetsPath, "json");
+            string filePath = EditorUtility.OpenFilePanel("Load Json File", Application.streamingAssetsPath, "json");
             if (filePath.Length != 0)
             {
                 gameObject.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadDate(filePath);
