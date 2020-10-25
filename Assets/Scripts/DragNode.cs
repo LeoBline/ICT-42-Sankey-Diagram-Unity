@@ -31,16 +31,20 @@ public class DragNode : MonoBehaviour, IDragHandler
         RectTransformUtility.ScreenPointToLocalPointInRectangle(thisRect.parent.GetComponent<RectTransform>(), clickPosition, GameObject.Find("Camera").GetComponent<Camera>(), out result);
         result += thisRect.sizeDelta / 2;
 
-        drag.GetComponent<RectTransform>().localPosition = eventData.position;
+        
         /*Debug.Log(a.name+" "+eventData);*/
-        a.x0 = result.x-nodewidth;
-         a.y0 = result.y-nodeheight;
-        a.y1 = result.y;
-        a.x1 = result.x;
-        nodeshow.GetComponent<NodeShow>().dragFlag = true;
-        nodeshow.GetComponent<NodeShow>().dragNode = this.name.Substring(5);
-        Debug.Log(nodeshow.GetComponent<NodeShow>().dragNode);
-
+        //set the drag border.
+        if (result.x > nodewidth && result.x < 1030 && result.y > nodeheight && result.y < 640)
+        {
+            drag.GetComponent<RectTransform>().localPosition = eventData.position;
+            a.x0 = result.x - nodewidth;
+            a.y0 = result.y - nodeheight;
+            a.y1 = result.y;
+            a.x1 = result.x;
+            Debug.Log(a.x0 + " " + a.x1 + " " + a.y0 + " " + a.y1);
+            nodeshow.GetComponent<NodeShow>().dragFlag = true;
+            nodeshow.GetComponent<NodeShow>().dragNode = this.name.Substring(5);
+        }
     }
     
    
