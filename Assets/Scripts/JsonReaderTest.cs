@@ -233,6 +233,7 @@ public class JsonReaderTest : MonoBehaviour
 
     public void loadDate(string transportFilepath)
     {
+        Boolean FileRightFlag = true;
         graphContainer = transform.parent.gameObject.GetComponent<RectTransform>();
         x0 = 10;
         y0 = 10;
@@ -241,21 +242,35 @@ public class JsonReaderTest : MonoBehaviour
         string filepath = "";
         if (transportFilepath != "")
         {
-            filepath = transportFilepath;
+            filepath = transportFilepath;  
+            if (filepath != "")
+            {
+                
+                if (!filepath.EndsWith(".json"))
+                {
+                    Debug.Log(filepath + " is not a json file");
+                    FileRightFlag = false;
+                }
+
+            }
         }
         else
         {
             if (jsFile != null)
             {
+                if (transportFilepath == "") { 
                 filepath = AssetDatabase.GetAssetPath(jsFile);
+                 }
                 if (!filepath.EndsWith(".json"))
                 {
                     Debug.Log(filepath + " is not a json file");
+                    FileRightFlag = false;
                 }
 
             }
+
         }
-        if (filepath != "")
+        if (filepath != "" && FileRightFlag == true)
         {
             StreamReader streamreader = new StreamReader(filepath);
             JsonReader js = new JsonReader(streamreader);
