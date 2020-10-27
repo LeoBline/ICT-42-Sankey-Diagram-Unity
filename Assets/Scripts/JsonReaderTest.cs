@@ -166,6 +166,70 @@ public class JsonReaderTest : MonoBehaviour
 
     }
 
+    public void loadHtmlData(StreamReader JsonContent)
+    {
+        if (JsonContent.ReadLine() == "")
+        {
+            Debug.Log("Online Json file is null");
+        }
+        else
+        {
+            JsonReader js = new JsonReader(JsonContent);
+            Root r = JsonMapper.ToObject<Root>(js);
+            NodesStructures = new NodesStructure[r.nodes.Count];
+            for (int i = 0; i < r.nodes.Count; i++)
+            {
+
+                NodesStructures[i] = new NodesStructure();
+                NodesStructures[i].name = r.nodes[i].name;
+                NodesStructures[i].layer = 999;
+                NodesStructures[i].index = i;
+                NodesStructures[i].SourceLinks = new List<LinksStructure>();
+                NodesStructures[i].TargetLinks = new List<LinksStructure>();
+            }
+            LinksStructures = new LinksStructure[r.links.Count];
+            for (int i = 0; i < r.links.Count; i++)
+            {
+
+
+                /*            NodesStructures[r.links[i].target].addTargetLink(r.links[i].source, r.links[i].target, r.links[i].value,i);
+                            NodesStructures[r.links[i].source].addSourceLink(r.links[i].source, r.links[i].target, r.links[i].value,i);*/
+                LinksStructures[i] = new LinksStructure();
+                LinksStructures[i].value = r.links[i].value;
+                LinksStructures[i].index = i;
+                LinksStructures[i].SourceNode = NodesStructures[r.links[i].source];
+                LinksStructures[i].TargetNode = NodesStructures[r.links[i].target];
+                NodesStructures[r.links[i].source].SourceLinks.Add(LinksStructures[i]);
+                NodesStructures[r.links[i].target].TargetLinks.Add(LinksStructures[i]);
+
+            }
+            if (linkSort != null)
+            {
+                for (int i = 0; i < NodesStructures.Length; i++)
+                {
+                    NodesStructures[i].SourceLinks.Sort((IComparer<LinksStructure>)linkSort);
+                    NodesStructures[i].TargetLinks.Sort((IComparer<LinksStructure>)linkSort);
+                }
+            }
+            for (int i = 0; i < NodesStructures.Length; i++)
+            {
+                NodesStructures[i].getvalue();
+
+            }
+            ComputeNodeHeights();
+            ComputeNodeDepths();
+
+            ComputeNodeBreadths();
+            computeLinkBreadths();
+            /*        Debug.Log("--------------------------------");
+                    for (int i = 0; i < NodesStructures.Length; i++)
+                    {
+                        NodesStructures[i].tostring();
+                    }*/
+
+            gameObject.SetActive(false);
+        }
+    }
 
     public void loadDate(string transportFilepath)
     {
