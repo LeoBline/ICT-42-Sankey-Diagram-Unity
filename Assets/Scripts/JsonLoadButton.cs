@@ -36,7 +36,10 @@ public class JsonLoadButton : MonoBehaviour
                 {
                     //local Json File
                     gameObject.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadDate(filePath);
-                    gameObject.transform.parent.GetComponent<NodeShow>().continulFlag = true;
+                    if (filePath.EndsWith(".json"))
+                    {
+                        gameObject.transform.parent.GetComponent<NodeShow>().continulFlag = true;
+                    }
                 }
             }
         };
