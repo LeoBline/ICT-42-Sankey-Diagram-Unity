@@ -21,6 +21,11 @@ public class JsonLoadButton : MonoBehaviour
                 gameObject.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadDate(filePath);
                 if (filePath.EndsWith(".json"))
                 {
+<<<<<<< HEAD
+=======
+                    //local Json File
+                    gameObject.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadDate(filePath);
+>>>>>>> parent of 79948fe9... fix the local json button bug
                     gameObject.transform.parent.GetComponent<NodeShow>().continulFlag = true;
                 }
              
