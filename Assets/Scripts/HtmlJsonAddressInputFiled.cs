@@ -22,17 +22,23 @@ public class HtmlJsonAddressInputFiled : MonoBehaviour
 
     private void OnEndEdit(string arg0)
     {
-        Debug.Log(arg0);
-        WebClient MyWebClient = new WebClient();
-        MyWebClient.Credentials = CredentialCache.DefaultCredentials;
-        Byte[] pageData = MyWebClient.DownloadData(arg0);
-        MemoryStream ms = new MemoryStream(pageData);
-        using (StreamReader sr = new StreamReader(ms, Encoding.GetEncoding("GB2312")))
+        if (arg0 != "" && arg0.EndsWith(".json"))
         {
-            this.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadHtmlData(sr);
-            this.transform.parent.GetComponent<NodeShow>().continulFlag = true;
-        }
-        
+            Debug.Log(arg0);
+            WebClient MyWebClient = new WebClient();
+            MyWebClient.Credentials = CredentialCache.DefaultCredentials;
+            Byte[] pageData = MyWebClient.DownloadData(arg0);
+            MemoryStream ms = new MemoryStream(pageData);
+            using (StreamReader sr = new StreamReader(ms, Encoding.GetEncoding("GB2312")))
+            {
+                this.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadHtmlData(sr);
+                this.transform.parent.GetComponent<NodeShow>().continulFlag = true;
+            }
 
+        }
+        else
+        {
+            Debug.Log("This Online file is not a Json file or the url is empty");
+        }
     }
 }
