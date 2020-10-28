@@ -46,6 +46,7 @@ public class NodeShow : MonoBehaviour {
         GameObjectList = new List<GameObject>();
         GameLineObjectList = new List<GameObject>();
         showGraph(nodesStructures, linksStructures);
+        transform.Find("AboutWindow").Find("Panel").GetComponent<CanvasGroup>().alpha = 0;
         transform.Find("Left").GetComponent<Button_UI>().ClickFunc = () =>
         {
             JsonReaderObject.GetComponent<JsonReaderTest>().align = JsonReaderTest.aligns.left;
@@ -88,10 +89,16 @@ public class NodeShow : MonoBehaviour {
            // camera.clearFlags = CameraClearFlags.Nothing;
             ScreenshotHandler screenshot = new ScreenshotHandler(camera);
             screenshot.TakeScreenshot_Static(1000, 800);
-          
-
-
         };
+        transform.Find("Help and about").GetComponent<Button_UI>().ClickFunc = () =>
+         {
+             transform.Find("AboutWindow").Find("Panel").GetComponent<CanvasGroup>().alpha = 1;
+         };
+        transform.Find("AboutWindow").Find("Panel").Find("C1").Find("Button").GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            transform.Find("AboutWindow").Find("Panel").GetComponent<CanvasGroup>().alpha = 0;
+        };
+
     }
     
 

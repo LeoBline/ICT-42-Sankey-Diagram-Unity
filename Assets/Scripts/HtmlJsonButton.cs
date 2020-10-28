@@ -22,8 +22,17 @@ public class HtmlJsonButton : MonoBehaviour
     //Call when click
     void onClick()
     {
-        Debug.Log("Click");
-        Diague.SetActive(true);
+        if (Diague.active == true)
+        {
+            Diague.SetActive(false);
+            Debug.Log("Click to close Dialog");
+        }
+        else
+        {
+            Debug.Log("Click to open Dialog");
+            Diague.SetActive(true);
+        }
+
     }
-    
+
 }
