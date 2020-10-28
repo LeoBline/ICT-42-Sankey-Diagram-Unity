@@ -166,15 +166,15 @@ public class JsonReaderTest : MonoBehaviour
 
     }
 
-    public void loadHtmlData(StreamReader JsonContent)
+    public void loadHtmlData(string JsonContent)
     {
-        if (JsonContent.ReadLine() == "")
+        if (JsonContent == "")
         {
             Debug.Log("Online Json file is null");
         }
         else
         {
-            JsonReader js = new JsonReader(JsonContent);
+            JsonReader js = new JsonReader(new StringReader(JsonContent));
             Root r = JsonMapper.ToObject<Root>(js);
             NodesStructures = new NodesStructure[r.nodes.Count];
             for (int i = 0; i < r.nodes.Count; i++)

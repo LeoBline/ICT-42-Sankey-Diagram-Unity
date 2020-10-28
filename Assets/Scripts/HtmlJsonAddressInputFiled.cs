@@ -5,12 +5,17 @@ using UnityEngine.UI;
 using System.Net;
 using System.IO;
 using System.Text;
+using LitJson;
 using System;
 
 public class HtmlJsonAddressInputFiled : MonoBehaviour
 {
-    
+
+    public GameObject JsonReader;
+    public GameObject graph;
     public string htmlAddress = "";
+    public System.IO.StreamReader myReader;
+    
     private void Awake()
     {
         var input = this.GetComponent<InputField>();
@@ -20,21 +25,26 @@ public class HtmlJsonAddressInputFiled : MonoBehaviour
         }
     }
 
+
+    //get the content of file
+    private System.IO.StreamReader Get(string url)
+    {
+        HttpWebRequest request;
+        request = (HttpWebRequest)WebRequest.Create(url);
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        System.IO.StreamReader myreader = new System.IO.StreamReader(response.GetResponseStream(), Encoding.UTF8);
+        return myreader;
+    }
     private void OnEndEdit(string arg0)
     {
-        if (arg0 != "" && arg0.EndsWith(".json"))
+        this.htmlAddress = this.GetComponent<InputField>().text;
+        if (this.htmlAddress != "" && this.htmlAddress.EndsWith(".json"))
         {
-            Debug.Log(arg0);
-            WebClient MyWebClient = new WebClient();
-            MyWebClient.Credentials = CredentialCache.DefaultCredentials;
-            Byte[] pageData = MyWebClient.DownloadData(arg0);
-            MemoryStream ms = new MemoryStream(pageData);
-            using (StreamReader sr = new StreamReader(ms, Encoding.GetEncoding("GB2312")))
-            {
-                this.transform.parent.Find("JsonReader").GetComponent<JsonReaderTest>().loadHtmlData(sr);
-                this.transform.parent.GetComponent<NodeShow>().continulFlag = true;
-            }
-
+            Debug.Log(htmlAddress);
+            this.myReader = this.Get(htmlAddress);
+            string content = myReader.ReadToEnd();
+            this.JsonReader.GetComponent<JsonReaderTest>().loadHtmlData(content);
+            this.graph.GetComponent<NodeShow>().continulFlag = true;
         }
         else
         {
