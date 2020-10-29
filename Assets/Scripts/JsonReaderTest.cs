@@ -168,12 +168,16 @@ public class JsonReaderTest : MonoBehaviour
 
     public void loadHtmlData(string JsonContent)
     {
+
+
+
         if (JsonContent == "")
         {
             Debug.Log("Online Json file is null");
         }
         else
         {
+
             JsonReader js = new JsonReader(new StringReader(JsonContent));
             Root r = JsonMapper.ToObject<Root>(js);
             NodesStructures = new NodesStructure[r.nodes.Count];
@@ -228,6 +232,7 @@ public class JsonReaderTest : MonoBehaviour
                     }*/
 
             gameObject.SetActive(false);
+            gameObject.transform.parent.GetComponent<NodeShow>().reloadFlag = true;
         }
     }
 
@@ -327,6 +332,7 @@ public class JsonReaderTest : MonoBehaviour
                     }*/
 
             gameObject.SetActive(false);
+            gameObject.transform.parent.GetComponent<NodeShow>().reloadFlag = true;
         }
     }
 

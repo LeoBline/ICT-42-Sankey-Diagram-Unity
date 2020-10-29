@@ -27,6 +27,7 @@ public class NodeShow : MonoBehaviour {
     public float lineAlpha = 0.15f;
     public bool continulFlag = false;
     public bool dragFlag = false;
+    public bool reloadFlag =false;
     public String dragNode;
 
 
@@ -165,6 +166,22 @@ public class NodeShow : MonoBehaviour {
     {
         if (continulFlag)
         {
+            if(reloadFlag)
+            {
+
+                for (int i = 0; i < transform.childCount; i++)
+                {
+
+                    if (transform.GetChild(i).name.Contains("node") || transform.GetChild(i).name.Contains("line"))
+                    {
+                        Debug.Log(transform.GetChild(i).gameObject.name);
+                        Destroy(transform.GetChild(i).gameObject);
+                    }
+                }
+                reloadFlag = false;
+                Start();
+                
+            }
 
                 linkindex = 0;
                 NodesStructure[] nodesStructures = JsonReaderObject.GetComponent<JsonReaderTest>().NodesStructures;
@@ -173,7 +190,7 @@ public class NodeShow : MonoBehaviour {
                 updateGraph(nodesStructures, linksStructures);
                 
             updateTime += 0.1;
-            if (updateTime == 0.5)
+            if (updateTime == 0.2)
             {
                 continulFlag = false;
                 updateTime = 0;
@@ -387,6 +404,7 @@ public class NodeShow : MonoBehaviour {
         GameObject gameObject = new GameObject("node:" + Node.name, typeof(Image));
         gameObject.GetComponent<Image>().color = RandomColor1();
         gameObject.transform.SetParent(graphContainer, false);
+        gameObject.transform.SetSiblingIndex(0);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = graphPosition;
         rectTransform.sizeDelta = new Vector2(barWidth, barHight);
@@ -405,7 +423,7 @@ public class NodeShow : MonoBehaviour {
             lineobject.AddComponent<LineRenderer>();
             lineobject.transform.SetParent(graphContainer, false);
             LineRenderer line = lineobject.GetComponent<LineRenderer>();
-            line.sortingOrder = 10;
+            line.sortingOrder = -9;
             line.useWorldSpace = false;
             line.motionVectors = false;
             line.material = new Material(Shader.Find("Sprites/Default"));
