@@ -4,11 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-/*
+/**
  * Class Name :  
  *     Button_UI
- */
-/*
+
  * Class Description : 
  *     This class has multiple attributes for monitoring mouse operations which 
  *     is type of Action. They can call corresponding methods. At current stage, 

@@ -7,7 +7,13 @@ using System.IO;
 using System.Text;
 using LitJson;
 using System;
+/**
+ * Class Name :  
+ *     HtmlJsonAddressInputFiled
 
+ * Class Description : 
+ *     
+ */
 public class HtmlJsonAddressInputFiled : MonoBehaviour
 {
 
