@@ -7,7 +7,13 @@ using System.IO;
 using System.Text;
 using LitJson;
 using System;
+/**
+ * Class Name :  
+ *     HtmlJsonAddressInputFiled
 
+ * Class Description : 
+ *     
+ */
 public class HtmlJsonAddressInputFiled : MonoBehaviour
 {
 
@@ -25,8 +31,6 @@ public class HtmlJsonAddressInputFiled : MonoBehaviour
         }
     }
 
-
-    //get the content of file
     private System.IO.StreamReader Get(string url)
     {
         HttpWebRequest request;
@@ -35,18 +39,23 @@ public class HtmlJsonAddressInputFiled : MonoBehaviour
         System.IO.StreamReader myreader = new System.IO.StreamReader(response.GetResponseStream(), Encoding.UTF8);
         return myreader;
     }
+
+    /*
+     * Method name: OnEndEdit
+     * Argument: string htmlAddress
+     * Method description: catch static resource from input HTML address
+     */
     private void OnEndEdit(string arg0)
     {
         this.htmlAddress = this.GetComponent<InputField>().text;
-        if (this.htmlAddress != "" && this.htmlAddress.EndsWith(".json"))
+        if (this.htmlAddress != "" && this.htmlAddress.EndsWith(".json"))// when request file is valid
         {
-            Debug.Log(htmlAddress);
             this.myReader = this.Get(htmlAddress);
-            string content = myReader.ReadToEnd();
-            this.JsonReader.GetComponent<JsonReaderTest>().loadHtmlData(content);
+            string content = myReader.ReadToEnd();// read in json data as string
+            this.JsonReader.GetComponent<JsonReaderTest>().loadHtmlData(content);// use method in JsonReaderTest to read json data into system
             this.graph.GetComponent<NodeShow>().continulFlag = true;
         }
-        else
+        else// when request file is invalid
         {
             Debug.Log("This Online file is not a Json file or the url is empty");
         }
