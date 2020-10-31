@@ -5,13 +5,10 @@ using LitJson;
 using System.Linq;
 using UnityEditor;
 using System.IO;
-using UnityEngine.UIElements;
 using System;
-using JetBrains.Annotations;
-using System.Runtime.InteropServices.ComTypes;
-using UnityEditor.Profiling.Memory.Experimental;
-using UnityEditorInternal;
-using UnityEngine.SocialPlatforms.GameCenter;
+
+
+
 using UnityEngine.Windows;
 
 public class NodesItem
@@ -264,7 +261,7 @@ public class JsonReaderTest : MonoBehaviour
             if (jsFile != null)
             {
                 if (transportFilepath == "") { 
-                filepath = AssetDatabase.GetAssetPath(jsFile);
+                filepath = UnityEditor.AssetDatabase.GetAssetPath(jsFile);
                  }
                 if (!filepath.EndsWith(".json"))
                 {

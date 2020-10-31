@@ -110,13 +110,13 @@ public class NodeShow : MonoBehaviour {
         try
         {
             LineRenderer line = lineobject.GetComponent<LineRenderer>();
-            var start = line.GetPosition(0);
+            var start = line.GetPosition(40);
             var end = line.GetPosition(line.positionCount - 1);
             var a = (line.positionCount - 1) / part;
             GameObject test = new GameObject("text", typeof(Text));
             test.GetComponent<Text>().fontSize = textFontSize;
             test.GetComponent<Text>().font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-            test.GetComponent<Text>().color = new Color(224,255,255);
+            test.GetComponent<Text>().color = Color.black;
             test.GetComponent<Text>().text = tool;
             test.transform.SetParent(line.transform);
             test.SetActive(false);
@@ -183,15 +183,16 @@ public class NodeShow : MonoBehaviour {
                 
             }
 
+
+                
+            updateTime += 0.1;
+            if (updateTime == 0.4)
+            {          
                 linkindex = 0;
                 NodesStructure[] nodesStructures = JsonReaderObject.GetComponent<JsonReaderTest>().NodesStructures;
                 LinksStructure[] linksStructures = JsonReaderObject.GetComponent<JsonReaderTest>().LinksStructures;
                 graphContainer = transform.GetComponent<RectTransform>();
                 updateGraph(nodesStructures, linksStructures);
-                
-            updateTime += 0.1;
-            if (updateTime == 0.2)
-            {
                 continulFlag = false;
                 updateTime = 0;
             }
@@ -411,6 +412,16 @@ public class NodeShow : MonoBehaviour {
         rectTransform.anchorMax = new Vector2(0, 0);
         rectTransform.anchorMin = new Vector2(0, 0);
         barlist[i] = gameObject;
+
+        GameObject test = new GameObject("text", typeof(Text));
+        test.GetComponent<Text>().fontSize = textFontSize;
+        test.GetComponent<Text>().font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        test.GetComponent<Text>().color = new Color(224, 255, 255);
+        test.GetComponent<Text>().text = Node.name;
+        test.transform.SetParent(gameObject.transform);
+        test.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 20);
+        test.transform.localPosition = new Vector3(60 , 0, 0);
+
         return gameObject;
     }
 
@@ -556,7 +567,7 @@ public class NodeShow : MonoBehaviour {
         barChartVisualObject.SetGraphVisualObjectInfo(graphPosition, Width, barHight, tooltipText);
         Button_UI barButtonUI = barGameObject.AddComponent<Button_UI>();
         barButtonUI.MouseOverOnceFunc += () => {
-            ShowTooltip_Static(tooltipText, graphPosition);
+           /* ShowTooltip_Static(tooltipText, graphPosition);*/
         };
         
 

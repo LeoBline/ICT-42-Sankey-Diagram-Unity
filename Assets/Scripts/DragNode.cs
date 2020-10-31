@@ -34,17 +34,24 @@ public class DragNode : MonoBehaviour, IDragHandler
         
         /*Debug.Log(a.name+" "+eventData);*/
         //set the drag border.
-        if (result.x > nodewidth && result.x < 1030 && result.y > nodeheight && result.y < 640)
-        {
+
+            
             drag.GetComponent<RectTransform>().localPosition = eventData.position;
-            a.x0 = result.x - nodewidth;
-            a.y0 = result.y - nodeheight;
-            a.y1 = result.y;
-            a.x1 = result.x;
+            float x=result.x, y = result.y;
+            if (result.x < 0) x = 0;
+            if (result.x > 1039) x = 1039;
+            if (result.y < nodeheight) y = nodeheight;
+            if (result.y > 630) y = 630;
+
+            a.x0 = x - nodewidth;
+            a.y0 = y - nodeheight;
+            a.y1 = y;
+            a.x1 = x;
+
             Debug.Log(a.x0 + " " + a.x1 + " " + a.y0 + " " + a.y1);
             nodeshow.GetComponent<NodeShow>().dragFlag = true;
             nodeshow.GetComponent<NodeShow>().dragNode = this.name.Substring(5);
-        }
+        
     }
     
    

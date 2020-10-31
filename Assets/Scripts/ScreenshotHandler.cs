@@ -36,7 +36,7 @@ public class ScreenshotHandler : MonoBehaviour
             renderResult.ReadPixels(rect, 0, 0);
             byte[] byteArray = renderResult.EncodeToPNG();
 
-            string filePath = EditorUtility.SaveFilePanel("Load Json File", Application.streamingAssetsPath, "CameraScreenshot.png", "png");
+            string filePath = UnityEditor.EditorUtility.SaveFilePanel("Load Json File", Application.streamingAssetsPath, "CameraScreenshot.png", "png");
             System.IO.File.WriteAllBytes(filePath, byteArray);
             Debug.Log("Save");
             RenderTexture.ReleaseTemporary(renderTexture);
