@@ -89,7 +89,7 @@ public class NodeShow : MonoBehaviour {
             Camera camera = gameObject.GetComponent<Camera>();
            // camera.clearFlags = CameraClearFlags.Nothing;
             ScreenshotHandler screenshot = new ScreenshotHandler(camera);
-            screenshot.TakeScreenshot_Static(1000, 800);
+            screenshot.TakeScreenshot_Static(1070, 800);
         };
         transform.Find("Help and about").GetComponent<Button_UI>().ClickFunc = () =>
          {
@@ -416,7 +416,7 @@ public class NodeShow : MonoBehaviour {
         GameObject test = new GameObject("text", typeof(Text));
         test.GetComponent<Text>().fontSize = textFontSize;
         test.GetComponent<Text>().font = Resources.GetBuiltinResource<Font>("Arial.ttf");
-        test.GetComponent<Text>().color = new Color(224, 255, 255);
+        test.GetComponent<Text>().color = Color.green;
         test.GetComponent<Text>().text = Node.name;
         test.transform.SetParent(gameObject.transform);
         test.gameObject.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 20);
