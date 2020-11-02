@@ -16,7 +16,8 @@ public class CreateJsReader : Editor
      * Method name: 
      *      Start
      * Method description: 
-     *      This method is called before the first frame update
+     *      This method is for create a JSon data reader, so that the system can save JSon data into data structure.
+     *      It will be called before the first frame update.
      */
     void Start()
     {
@@ -38,7 +39,7 @@ public class CreateJsReader : Editor
  *      Test
  *      
  * Class description:
- *      Using for case testing of CreateJsReader class.
+ *      Another way to create a JSon data reader, so that the system can create reader at any time it needs.
  * 
  */
 public static class Test
