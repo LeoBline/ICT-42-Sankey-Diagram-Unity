@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -150,33 +149,6 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         internalOnPointerExitFunc += () => { if (cursorMouseOut != CursorManager.CursorType.None) CursorManager.SetCursor(cursorMouseOut); };
 #endif
     }
-    public void SetHoverBehaviourType(HoverBehaviour hoverBehaviourType)
-    {
-/*            this.hoverBehaviourType = hoverBehaviourType;
-        switch (hoverBehaviourType)
-        {
-            case HoverBehaviour.Change_Color:
-                hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Image.color = hoverBehaviour_Color_Enter; };
-                hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Image.color = hoverBehaviour_Color_Exit; };
-                break;
-            case HoverBehaviour.Change_Image:
-                hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Image.sprite = hoverBehaviour_Sprite_Enter; };
-                hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Image.sprite = hoverBehaviour_Sprite_Exit; };
-                break;
-            case HoverBehaviour.Change_SetActive:
-                hoverBehaviourFunc_Enter = delegate () { hoverBehaviour_Image.gameObject.SetActive(true); };
-                hoverBehaviourFunc_Exit = delegate () { hoverBehaviour_Image.gameObject.SetActive(false); };
-                break;
-        }*/
-    }
-
-
-
-
-
-
-
-
 
     /*
         * Class for temporarily intercepting a button action
