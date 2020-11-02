@@ -15,7 +15,7 @@ using UnityEngine.EventSystems;
  *     and this category can be expanded when there is more need to monitor mouse 
  *     actions in the future. 
  */
-public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler 
+public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
 {
     //Some attributions of Button_UI
     public Action ClickFunc = null;
@@ -54,15 +54,18 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private float mouseOverPerSecFuncTimer;
 
     private Action internalOnPointerEnterFunc, internalOnPointerExitFunc, internalOnPointerClickFunc;
-
+    
+    // sound manager:
 #if SOUND_MANAGER
     public Sound_Manager.Sound mouseOverSound, mouseClickSound;
 #endif
+
+    // coursor manager:
 #if CURSOR_MANAGER
     public CursorManager.CursorType cursorMouseOver, cursorMouseOut;
 #endif
 
-    // =========================================functions about the button=============================================================
+    // =========================================methods about the button=============================================================
     public virtual void OnPointerEnter(PointerEventData eventData)
     {
         if (internalOnPointerEnterFunc != null) internalOnPointerEnterFunc();
@@ -116,6 +119,7 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         if (MouseUpFunc != null) MouseUpFunc();
     }
 
+    //================== implement default methods of GameObject=============================================================================================
     void Update()
     {
         if (mouseOver)
@@ -137,23 +141,28 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         posEnter = (Vector2)transform.localPosition + hoverBehaviour_Move_Amount;
         SetHoverBehaviourType(hoverBehaviourType);
 
-#if SOUND_MANAGER
         // Sound Manager
+#if SOUND_MANAGER
         internalOnPointerEnterFunc += () => { if (mouseOverSound != Sound_Manager.Sound.None) Sound_Manager.PlaySound(mouseOverSound); };
         internalOnPointerClickFunc += () => { if (mouseClickSound != Sound_Manager.Sound.None) Sound_Manager.PlaySound(mouseClickSound); };
 #endif
 
-#if CURSOR_MANAGER
         // Cursor Manager
+#if CURSOR_MANAGER
         internalOnPointerEnterFunc += () => { if (cursorMouseOver != CursorManager.CursorType.None) CursorManager.SetCursor(cursorMouseOver); };
         internalOnPointerExitFunc += () => { if (cursorMouseOut != CursorManager.CursorType.None) CursorManager.SetCursor(cursorMouseOut); };
 #endif
     }
 
     /*
-        * Class for temporarily intercepting a button action
-        * Useful for Tutorial disabling specific buttons
-        * */
+    * Class name: 
+    *       InterceptActionHandler
+    * 
+    * CLass description: 
+    *       This class is using for Tutorial, not using in the final project.
+    *       The function of the class is intercepting/listening a button action temporarily.
+    *       Also, it can disable specific button's function.
+    * */
     public class InterceptActionHandler
     {
 
@@ -180,7 +189,8 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         Action backFunc = fieldInfo.GetValue(this) as Action;
         InterceptActionHandler interceptActionHandler = new InterceptActionHandler(() => fieldInfo.SetValue(this, backFunc));
-        fieldInfo.SetValue(this, (Action)delegate () {
+        fieldInfo.SetValue(this, (Action)delegate ()
+        {
             if (testPassthroughFunc())
             {
                 // Passthrough
