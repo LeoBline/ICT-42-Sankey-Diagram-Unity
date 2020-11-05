@@ -139,7 +139,7 @@ public class Button_UI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         posExit = transform.localPosition;
         posEnter = (Vector2)transform.localPosition + hoverBehaviour_Move_Amount;
-        SetHoverBehaviourType(hoverBehaviourType);
+        /*SetHoverBehaviourType(hoverBehaviourType);*/
 
         // Sound Manager
 #if SOUND_MANAGER

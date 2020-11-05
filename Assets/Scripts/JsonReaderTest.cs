@@ -322,11 +322,11 @@ public class JsonReaderTest : MonoBehaviour
 
             ComputeNodeBreadths();
             computeLinkBreadths();
-            /*        Debug.Log("--------------------------------");
-                    for (int i = 0; i < NodesStructures.Length; i++)
-                    {
-                        NodesStructures[i].tostring();
-                    }*/
+            Debug.Log("--------------------------------");
+            for (int i = 0; i < NodesStructures.Length; i++)
+            {
+                NodesStructures[i].tostring();
+            }
 
             gameObject.SetActive(false);
             gameObject.transform.parent.GetComponent<NodeShow>().reloadFlag = true;
