@@ -12,7 +12,8 @@ using System;
  *     HtmlJsonAddressInputFiled
 
  * Class Description : 
- *     
+ *     This class will get Json data from website through URL. 
+ *     After getting data, it will store the Json data into the system data structure.
  */
 public class HtmlJsonAddressInputFiled : MonoBehaviour
 {
